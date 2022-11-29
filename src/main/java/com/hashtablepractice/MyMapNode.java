@@ -92,6 +92,46 @@ public class MyMapNode<K,V> {
 			expandList();
 	}
 	
+	public void remove(K key)
+	{
+		int index = getBucketIndex(key);
+	    HashNode temp = bucketList.get(index);
+	    
+	    if(temp == null)
+	    {
+	    	System.out.println("Key " + key +" not present!");
+	    	return;
+	    }
+	    
+	    if(temp.key.equals(key) && temp.next == null)
+	    {
+	    	bucketList.set(index, null);
+	    	return;
+	    }
+	    
+	    HashNode slast = temp;
+	    HashNode last = temp.next;
+	    
+	    while(slast.next != null)
+	    {
+	    	if(temp.key.equals(key))
+	    	{
+	    		bucketList.set(index, last);
+	    		return;
+	    	}
+	    	
+	    	if(last.key.equals(key))
+	    	{
+	    		slast.next = last.next;
+	    		return;
+	    	}
+	    	
+	    	slast = slast.next;
+	    	last = last.next;
+	    }
+	    System.out.println("Key " + key +" not present!");
+	}
+	
 	public void expandList()
 	{
 		for(int i=0;i<10;i++)
@@ -133,6 +173,9 @@ public class MyMapNode<K,V> {
 		
 		System.out.println("Frequency of words is as follows");
 		map.display();
-		System.out.println("size is " + map.size+ " no of buckets is "+ map.numBuckets);
+		System.out.println("Removing word \"avoidable\"\n");
+		map.remove("avoidable");
+		map.display();
 	}
+
 }
