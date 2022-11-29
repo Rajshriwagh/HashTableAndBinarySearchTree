@@ -16,6 +16,7 @@ public class BinaryTree<K extends Comparable<K>> {
 	}
 	
 	TreeNode root;
+	int sze = 0;
 	
 	BinaryTree()
 	{
@@ -43,18 +44,22 @@ public class BinaryTree<K extends Comparable<K>> {
 		if(this.root == null)
 		{
 			root = new TreeNode(data);
+			sze++;
 			return;
 		}
 		TreeNode<K> slast = this.root;
 		TreeNode<K> last = data.compareTo(slast.data) < 0 ? slast.left : slast.right;
 		while(true)
 		{	
+			if(data.compareTo(slast.data) == 0)
+				return;
 			if(last == null)
 			{
 				if(data.compareTo(slast.data) < 0)
 					slast.left = new TreeNode(data);
 				else
 					slast.right = new TreeNode(data);
+				sze++;
 				return;
 			}
 			slast = data.compareTo(slast.data) < 0 ? slast.left : slast.right;
@@ -79,14 +84,31 @@ public class BinaryTree<K extends Comparable<K>> {
 		inorder(this.root);
 	}
 	
+	public void size()
+	{
+		System.out.println("size is " + this.sze);
+	}
+
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		BinaryTree bt = new BinaryTree();
 		bt.add(56);
 		bt.add(30);
+		bt.add(22);
+		bt.add(40);
+		bt.add(11);
+		bt.add(3);
+		bt.add(16);
 		bt.add(70);
+		bt.add(95);
+		bt.add(60);
+		bt.add(65);
+		bt.add(63);
+		bt.add(67);
 		bt.display();
+		bt.size();
 	}
 
 }
