@@ -16,7 +16,7 @@ public class BinaryTree<K extends Comparable<K>> {
 	}
 	
 	TreeNode root;
-	int sze = 0;
+	int size = 0;
 	
 	BinaryTree()
 	{
@@ -40,11 +40,10 @@ public class BinaryTree<K extends Comparable<K>> {
 	
 	public void add(K data)
 	{
-//		this.root = insert(root,data);
 		if(this.root == null)
 		{
 			root = new TreeNode(data);
-			sze++;
+			size++;
 			return;
 		}
 		TreeNode<K> slast = this.root;
@@ -59,7 +58,7 @@ public class BinaryTree<K extends Comparable<K>> {
 					slast.left = new TreeNode(data);
 				else
 					slast.right = new TreeNode(data);
-				sze++;
+				size++;
 				return;
 			}
 			slast = data.compareTo(slast.data) < 0 ? slast.left : slast.right;
@@ -86,12 +85,25 @@ public class BinaryTree<K extends Comparable<K>> {
 	
 	public void size()
 	{
-		System.out.println("size is " + this.sze);
+		System.out.println("size is " + this.size);
+	}
+	
+	public int search(Integer data)
+	{
+		if(this.root == null)
+			return 0;
+		TreeNode temp = this.root;
+		while(temp != null)
+		{
+			if(temp.data == data)
+				return data;
+			temp = temp.data.compareTo(data) < 0 ? temp.right : temp.left;
+		}
+		return 0;
 	}
 
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		BinaryTree bt = new BinaryTree();
 		bt.add(56);
@@ -109,8 +121,12 @@ public class BinaryTree<K extends Comparable<K>> {
 		bt.add(67);
 		bt.display();
 		bt.size();
+		int n = bt.search(70);
+		if(n == 0)
+			System.out.println("data not found in tree!");
+		else
+			System.out.println("data "+n+" present in tree!");
 	}
 
 }
-
 	
